@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { assessProduceQuality } from '../../src/server/qualityService';
+import { assessProduceQuality } from '../../src/server/qualityService.ts';
 
 export default async function handler(
   req: VercelRequest,
