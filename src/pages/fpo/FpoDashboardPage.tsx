@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { dataStore } from '../../services/dataStore';
 import {
   Users,
@@ -15,6 +16,7 @@ import {
 
 export const FpoDashboardPage: React.FC = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   const allLots = dataStore.getLots();
   const pooledLots = allLots.filter((l) => l.is_pooled);
@@ -27,16 +29,16 @@ export const FpoDashboardPage: React.FC = () => {
         <div>
           <div className="flex items-center space-x-2">
             <h1 className="text-xl font-bold text-[#0d0a0b] tracking-tight">
-              Sahyadri Farmers Producer Co. Ltd.
+              {t('fpo.orgName', 'Sahyadri Farmers Producer Co. Ltd.')}
             </h1>
             <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-[#6A994E]/15 text-[#386641] border border-[#6A994E]/30">
-              Verified FPC Producer Organization (CIN: U01111MH2024PTC123456)
+              {t('roles.fpcVerified', 'Verified FPC Producer Organization')} (CIN: U01111MH2024PTC123456)
             </span>
           </div>
           <p className="text-xs text-[#454955] mt-1 flex items-center space-x-2">
-            <span>Managing Director / CEO: {user?.name}</span>
+            <span>{t('fpo.managingDirector', 'Managing Director / CEO')}: {user?.name}</span>
             <span>•</span>
-            <span>Nashik & Dindori Clusters • 1,450 Registered Smallholders</span>
+            <span>{t('fpo.registeredSmallholders', 'Nashik & Dindori Clusters • 1,450 Registered Smallholders')}</span>
           </p>
         </div>
 
@@ -46,14 +48,14 @@ export const FpoDashboardPage: React.FC = () => {
             className="inline-flex items-center space-x-1.5 px-3.5 py-2 bg-[#386641] hover:bg-[#2d5535] text-white rounded-lg text-xs font-semibold shadow-2xs transition cursor-pointer"
           >
             <Layers className="w-3.5 h-3.5 text-white" />
-            <span>Aggregate Member Produce</span>
+            <span>{t('fpo.aggregateProduce', 'Aggregate Member Produce')}</span>
           </Link>
           <Link
             to="/fpo/analytics"
             className="inline-flex items-center space-x-1.5 px-3.5 py-2 bg-white hover:bg-slate-100 text-[#0d0a0b] rounded-lg text-xs font-semibold border border-slate-200 transition cursor-pointer shadow-2xs"
           >
             <PieChart className="w-3.5 h-3.5 text-[#386641]" />
-            <span>Pro-Rata Settlement Audit</span>
+            <span>{t('fpo.proRataAudit', 'Pro-Rata Settlement Audit')}</span>
           </Link>
         </div>
       </div>
@@ -62,20 +64,20 @@ export const FpoDashboardPage: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-2xs">
           <div className="flex items-center justify-between text-xs text-[#454955]">
-            <span>Member Produce Available</span>
+            <span>{t('fpo.memberProduceAvail', 'Member Produce Available')}</span>
             <Users className="w-4 h-4 text-[#386641]" />
           </div>
           <div className="text-2xl font-bold text-[#0d0a0b] mt-2">145 Q</div>
-          <div className="text-[11px] text-[#454955] mt-1">Across 8 smallholders</div>
+          <div className="text-[11px] text-[#454955] mt-1">{t('fpo.acrossSmallholders', 'Across 8 smallholders')}</div>
         </div>
 
         <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-2xs">
           <div className="flex items-center justify-between text-xs text-[#454955]">
-            <span>Active Pooled Volume</span>
+            <span>{t('fpo.activePooledVolume', 'Active Pooled Volume')}</span>
             <Layers className="w-4 h-4 text-[#386641]" />
           </div>
           <div className="text-2xl font-bold text-[#0d0a0b] mt-2">{totalPooledVolume} Q</div>
-          <div className="text-[11px] text-[#386641] font-medium mt-1">Grade A Carrot Consignment</div>
+          <div className="text-[11px] text-[#386641] font-medium mt-1">{t('fpo.carrotConsignment', 'Grade A Carrot Consignment')}</div>
         </div>
 
         <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-2xs">

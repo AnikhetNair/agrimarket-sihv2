@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { LoginPage } from './pages/LoginPage';
 
 // Role Layouts
@@ -50,13 +51,14 @@ const RootRedirect: React.FC = () => {
 export function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          {/* Public Authentication Route */}
-          <Route path="/login" element={<LoginPage />} />
+      <LanguageProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* Public Authentication Route */}
+            <Route path="/login" element={<LoginPage />} />
 
-          {/* Root Redirect based on role */}
-          <Route path="/" element={<RootRedirect />} />
+            {/* Root Redirect based on role */}
+            <Route path="/" element={<RootRedirect />} />
 
           {/* Farmer Route Tree (Protected) */}
           <Route path="/farmer" element={<FarmerLayout />}>
@@ -95,6 +97,7 @@ export function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
+      </LanguageProvider>
     </AuthProvider>
   );
 }

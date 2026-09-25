@@ -11,6 +11,7 @@ import {
 
 import { User, ProduceLot } from '../types/domain';
 import { extractLotFromNaturalLanguage } from '../services/aiService';
+import { useLanguage } from '../context/LanguageContext';
 
 interface SmartLotWizardModalProps {
   isOpen: boolean;
@@ -25,6 +26,7 @@ export const SmartLotWizardModal: React.FC<SmartLotWizardModalProps> = ({
   activeUser,
   onLotCreated,
 }) => {
+  const { t } = useLanguage();
   // Wizard Step: Step 1 (Quality Check) or Step 2 (Lot Details)
   const [step, setStep] = useState<1 | 2>(1);
 
@@ -322,12 +324,12 @@ export const SmartLotWizardModal: React.FC<SmartLotWizardModalProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-base font-bold text-[#0d0a0b]">
-                Create Lot
+                {t('modals.wizardTitle', 'Create Verified Produce Lot')}
               </h3>
               <p className="text-xs text-[#454955] mt-0.5">
                 {step === 1
-                  ? 'Step 1 of 2: Quality Check'
-                  : 'Step 2 of 2: Lot Details'}
+                  ? t('modals.qualityScan', 'Step 1: AI Quality Scan')
+                  : t('modals.wizardSubtitle', 'Step 2: Lot Details & Asking Rate')}
               </p>
             </div>
 

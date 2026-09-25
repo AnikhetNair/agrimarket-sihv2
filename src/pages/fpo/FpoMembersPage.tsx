@@ -1,8 +1,10 @@
 import React from 'react';
+import { useLanguage } from '../../context/LanguageContext';
 import { MapPin, CheckCircle2, Phone, Layers } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const FpoMembersPage: React.FC = () => {
+  const { t } = useLanguage();
   const members = [
     {
       id: 'usr-farmer-1',
@@ -71,10 +73,10 @@ export const FpoMembersPage: React.FC = () => {
       <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-[#0d0a0b] tracking-tight">
-            Member Farmer Directory
+            {t('fpo.membersTitle', 'FPO Farmer Member Directory')}
           </h1>
           <p className="text-xs text-[#454955] mt-0.5">
-            Verified smallholders, landholdings, active crop readiness, and aggregation assignments
+            {t('fpo.membersSubtitle', 'Manage affiliated smallholder farmers, farm acreage, and harvest schedules')}
           </p>
         </div>
 
@@ -83,7 +85,7 @@ export const FpoMembersPage: React.FC = () => {
           className="inline-flex items-center space-x-1.5 px-4 py-2 bg-[#386641] hover:bg-[#2d5535] text-white rounded-lg text-xs font-semibold shadow-2xs transition cursor-pointer self-start sm:self-auto"
         >
           <Layers className="w-4 h-4 text-white" />
-          <span>Pool Available Harvest</span>
+          <span>{t('fpo.aggregateProduce', 'Aggregate Member Produce')}</span>
         </Link>
       </div>
 

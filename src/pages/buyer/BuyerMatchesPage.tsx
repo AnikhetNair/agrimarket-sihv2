@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { dataStore } from '../../services/dataStore';
 import { User, ProduceLot, BuyerRequirement } from '../../types/domain';
 import { BuyerMatchingView } from '../../components/BuyerMatchingView';
@@ -7,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const BuyerMatchesPage: React.FC = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   const domainUser: User = {
@@ -31,10 +33,10 @@ export const BuyerMatchesPage: React.FC = () => {
     <div className="space-y-6">
       <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs">
         <h1 className="text-xl font-bold text-[#0d0a0b] tracking-tight">
-          Match Explorer & Compatibility Scorecard
+          {t('buyer.matchesTitle', 'Farm-Direct Matched Lots')}
         </h1>
         <p className="text-xs text-[#454955] mt-0.5">
-          Transparent algorithmic matching across quality specs, volume tolerance, and transport proximity
+          {t('buyer.matchesSubtitle', 'Algorithmic matching of verified lots meeting quality and volume parameters')}
         </p>
       </div>
 

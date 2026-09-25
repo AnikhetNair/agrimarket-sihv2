@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   TrendingUp,
   ShieldCheck,
@@ -11,6 +12,7 @@ import {
 } from 'lucide-react';
 import { User } from '../types/domain';
 import { dataStore } from '../services/dataStore';
+import { useLanguage } from '../context/LanguageContext';
 
 interface NavbarProps {
   activeUser: User;
@@ -34,8 +36,16 @@ export const Navbar: React.FC<NavbarProps> = ({
   onResetGolden,
 }) => {
   const [showRoleMenu, setShowRoleMenu] = useState(false);
-  const [language, setLanguage] = useState<'EN' | 'HI' | 'MR'>('EN');
+  const { language, setLanguage, t } = useLanguage();
+  const navigate = useNavigate();
   const alerts = dataStore.getAlerts().filter((a) => !a.read);
+
+  const getDashboardPath = () => {
+    if (activeUser.role === 'FARMER') return '/farmer';
+    if (activeUser.role === 'FPO_MEMBER' || (activeUser.role as any) === 'FPO') return '/fpo';
+    if (activeUser.role === 'BUYER') return '/buyer';
+    return '/farmer';
+  };
 
   const demoIdentities = [
     { id: 'usr-farmer-1', name: 'Ramesh Patil', role: 'FARMER', label: 'Farmer (Nashik - Carrot Grower)' },
@@ -63,20 +73,20 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Language selector */}
           <div className="flex items-center space-x-1 bg-slate-800 rounded px-1 py-0.5 text-[11px]">
             <button
-              onClick={() => setLanguage('EN')}
-              className={`px-1.5 py-0.5 rounded font-medium transition ${language === 'EN' ? 'bg-slate-700 text-white' : 'text-slate-400'}`}
+              onClick={() => setLanguage('en')}
+              className={`px-1.5 py-0.5 rounded font-medium transition cursor-pointer ${language === 'en' ? 'bg-slate-700 text-white font-semibold' : 'text-slate-400'}`}
             >
               English
             </button>
             <button
-              onClick={() => setLanguage('HI')}
-              className={`px-1.5 py-0.5 rounded font-medium transition ${language === 'HI' ? 'bg-slate-700 text-white' : 'text-slate-400'}`}
+              onClick={() => setLanguage('hi')}
+              className={`px-1.5 py-0.5 rounded font-medium transition cursor-pointer ${language === 'hi' ? 'bg-slate-700 text-white font-semibold' : 'text-slate-400'}`}
             >
               हिंदी
             </button>
             <button
-              onClick={() => setLanguage('MR')}
-              className={`px-1.5 py-0.5 rounded font-medium transition ${language === 'MR' ? 'bg-slate-700 text-white' : 'text-slate-400'}`}
+              onClick={() => setLanguage('mr')}
+              className={`px-1.5 py-0.5 rounded font-medium transition cursor-pointer ${language === 'mr' ? 'bg-slate-700 text-white font-semibold' : 'text-slate-400'}`}
             >
               मराठी
             </button>
@@ -84,7 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <button
             onClick={onOpenAuditLogs}
-            className="flex items-center space-x-1 hover:text-slate-200 transition text-slate-400"
+            className="flex items-center space-x-1 hover:text-slate-200 transition text-slate-400 cursor-pointer"
             title="System Audit & State Machine Logs"
           >
             <FileText className="w-3.5 h-3.5" />
@@ -96,7 +106,11 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Main App Navigation */}
       <div className="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between">
         <div className="flex items-center space-x-6">
-          <div className="flex items-center space-x-2.5 cursor-pointer" onClick={() => onTabChange('market')}>
+          <div
+            className="flex items-center space-x-2.5 cursor-pointer hover:opacity-90 transition"
+            onClick={() => navigate(getDashboardPath())}
+            title={t('header.goToDashboard', 'Go to Dashboard')}
+          >
             <div className="w-9 h-9 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold shadow-inner">
               <TrendingUp className="w-5 h-5" />
             </div>

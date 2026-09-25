@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useLanguage } from '../../context/LanguageContext';
 import { calculateFPOSettlement } from '../../services/settlementService';
 import { LotContributor } from '../../types/domain';
 import {
@@ -6,6 +7,7 @@ import {
 } from 'lucide-react';
 
 export const FpoAnalyticsPage: React.FC = () => {
+  const { t } = useLanguage();
   const contributors: LotContributor[] = [
     {
       id: 'c-1',
@@ -53,10 +55,10 @@ export const FpoAnalyticsPage: React.FC = () => {
     <div className="space-y-6">
       <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs">
         <h1 className="text-xl font-bold text-[#0d0a0b] tracking-tight">
-          Pro-Rata Settlement Audit & Ledger
+          {t('fpo.analyticsTitle', 'Settlement, Net Realisation & Audit Log')}
         </h1>
         <p className="text-xs text-[#454955] mt-0.5">
-          Mathematically certified revenue distributions, expense reconciliation, and smallholder member payouts
+          {t('fpo.analyticsSubtitle', 'Track member payout distributions, commission withholdings, and transport deductions')}
         </p>
       </div>
 

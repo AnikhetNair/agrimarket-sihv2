@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { User, Deal, DisputeCategory } from '../../types/domain';
 import { dataStore } from '../../services/dataStore';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface RaiseDisputeModalProps {
   isOpen: boolean;
@@ -30,6 +31,7 @@ export const RaiseDisputeModal: React.FC<RaiseDisputeModalProps> = ({
   activeUser,
   onSuccess,
 }) => {
+  const { t } = useLanguage();
   const allDeals = dataStore.getDeals();
   // Filter deals relevant to user, fallback to all deals if demo user has none
   const userDeals = allDeals.filter((d) =>
@@ -185,9 +187,11 @@ export const RaiseDisputeModal: React.FC<RaiseDisputeModalProps> = ({
               <AlertTriangle className="w-5 h-5 text-amber-300" />
             </div>
             <div>
-              <h2 className="text-lg font-bold">Raise Transaction Dispute</h2>
+              <h2 className="text-lg font-bold">
+                {t('disputes.raiseTitle', 'Raise Dispute / Claim')}
+              </h2>
               <p className="text-xs text-emerald-100">
-                Submit an issue for Sahyadri FPO arbitration &amp; escrow resolution
+                {t('disputes.raiseSubtitle', 'Submit an issue for arbitration & escrow resolution')}
               </p>
             </div>
           </div>

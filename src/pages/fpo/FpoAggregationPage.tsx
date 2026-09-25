@@ -1,10 +1,12 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { User, ProduceLot } from '../../types/domain';
 import { FPOAggregationView } from '../../components/FPOAggregationView';
 
 export const FpoAggregationPage: React.FC = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   const domainUser: User = {
     id: user?.id || 'usr-fpo-1',
@@ -25,10 +27,10 @@ export const FpoAggregationPage: React.FC = () => {
     <div className="space-y-6">
       <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs">
         <h1 className="text-xl font-bold text-[#0d0a0b] tracking-tight">
-          Produce Pooling & Lot Aggregation
+          {t('fpo.aggregationTitle', 'Produce Aggregation & Lot Pooling')}
         </h1>
         <p className="text-xs text-[#454955] mt-0.5">
-          Combine smallholder lots into institutional-grade bulk supply with automated pro-rata settlement
+          {t('fpo.aggregationSubtitle', 'Merge smallholder farmer lots into high-volume institutional grade batches')}
         </p>
       </div>
 

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../../context/LanguageContext';
 import { dataStore } from '../../services/dataStore';
 import { AggregatedPool } from '../../types/domain';
 import { Layers, Sparkles, ArrowRight, Boxes, Users, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const FpoLotsPage: React.FC = () => {
+  const { t } = useLanguage();
   const [pools, setPools] = useState<AggregatedPool[]>(() =>
     dataStore.getDemoAggregatedPools()
   );
@@ -32,10 +34,10 @@ export const FpoLotsPage: React.FC = () => {
       <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-brand-black tracking-tight">
-            Active Pooled Lots
+            {t('fpo.pooledLotsTitle', 'Consolidated FPO Lots')}
           </h1>
           <p className="text-xs text-brand-charcoal mt-0.5">
-            Institutional-scale aggregated pools ready for enterprise contracts and wholesale procurement
+            {t('fpo.pooledLotsSubtitle', 'Aggregated batches dispatched or open for bulk procurement contracts')}
           </p>
         </div>
 
@@ -44,7 +46,7 @@ export const FpoLotsPage: React.FC = () => {
           className="inline-flex items-center space-x-1.5 px-4 py-2 bg-brand-green hover:brightness-110 text-white rounded-lg text-xs font-semibold shadow-2xs transition cursor-pointer self-start sm:self-auto"
         >
           <Layers className="w-4 h-4 text-white" />
-          <span>Assemble New Collective Pool</span>
+          <span>{t('fpo.aggregationTitle', 'Produce Aggregation & Lot Pooling')}</span>
         </Link>
       </div>
 

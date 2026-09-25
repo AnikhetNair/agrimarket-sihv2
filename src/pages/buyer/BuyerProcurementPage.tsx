@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../../context/LanguageContext';
 import { dataStore } from '../../services/dataStore';
 import { BuyerRequirement } from '../../types/domain';
 import { MapPin, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const BuyerProcurementPage: React.FC = () => {
+  const { t } = useLanguage();
   const [requirements] = useState<BuyerRequirement[]>(() =>
     dataStore.getRequirements()
   );
@@ -14,10 +16,10 @@ export const BuyerProcurementPage: React.FC = () => {
       <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-[#0d0a0b] tracking-tight">
-            Active Procurement Demands
+            {t('buyer.procurementTitle', 'Procurement Demands')}
           </h1>
           <p className="text-xs text-[#454955] mt-0.5">
-            Commercial volume specifications, price ceilings, and scheduled destination arrivals
+            {t('buyer.procurementSubtitle', 'Define required commodities, volume quotas, target price, and delivery window')}
           </p>
         </div>
 
@@ -25,7 +27,7 @@ export const BuyerProcurementPage: React.FC = () => {
           to="/buyer/matches"
           className="inline-flex items-center space-x-1.5 px-4 py-2 bg-[#386641] hover:bg-[#2d5535] text-white rounded-lg text-xs font-semibold shadow-2xs transition cursor-pointer self-start sm:self-auto"
         >
-          <span>Evaluate Matching Farm Lots</span>
+          <span>{t('buyer.matchesTitle', 'Farm-Direct Matched Lots')}</span>
           <ArrowRight className="w-3.5 h-3.5 text-white" />
         </Link>
       </div>

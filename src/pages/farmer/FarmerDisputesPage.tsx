@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { dataStore } from '../../services/dataStore';
 import { Dispute } from '../../types/domain';
 import { DisputeCard } from '../../components/disputes/DisputeCard';
@@ -16,6 +17,7 @@ import {
 
 export const FarmerDisputesPage: React.FC = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const [isRaiseModalOpen, setIsRaiseModalOpen] = useState<boolean>(false);
   const [disputes, setDisputes] = useState<Dispute[]>(dataStore.getDisputes());
   const [filterStatus, setFilterStatus] = useState<string>('ALL');
@@ -60,9 +62,11 @@ export const FarmerDisputesPage: React.FC = () => {
                 <Scale className="w-6 h-6" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-slate-900">Farmer Dispute &amp; Claims Desk</h1>
+                <h1 className="text-xl font-bold text-slate-900">
+                  {t('farmer.disputesTitle', 'Disputes & Quality Arbitration')}
+                </h1>
                 <p className="text-xs text-slate-500">
-                  Track consignment claims, weighbridge shortages, and quality reviews backed by Sahyadri FPO Escrow
+                  {t('farmer.disputesSubtitle', 'Report quality mismatch, weight loss, or payment hold disputes')}
                 </p>
               </div>
             </div>
@@ -76,7 +80,7 @@ export const FarmerDisputesPage: React.FC = () => {
               className="px-4 py-2.5 bg-[#386641] hover:bg-[#2b5133] text-white rounded-xl text-xs font-bold transition shadow-xs cursor-pointer flex items-center space-x-2"
             >
               <Plus className="w-4 h-4" />
-              <span>Raise Dispute</span>
+              <span>{t('disputes.raiseTitle', 'Raise Dispute')}</span>
             </button>
           </div>
         </div>

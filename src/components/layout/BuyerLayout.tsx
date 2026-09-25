@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink, Navigate } from 'react-router-dom';
 import { AnimatedOutlet } from './AnimatedOutlet';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { AppHeader } from './AppHeader';
 import {
   LayoutDashboard,
@@ -14,6 +15,7 @@ import {
 
 export const BuyerLayout: React.FC = () => {
   const { role, isAuthenticated } = useAuth();
+  const { t } = useLanguage();
 
   // Route guard: only BUYER can access
   if (!isAuthenticated) {
@@ -26,12 +28,12 @@ export const BuyerLayout: React.FC = () => {
   }
 
   const navItems = [
-    { to: '/buyer', label: 'Overview', icon: LayoutDashboard, end: true },
-    { to: '/buyer/procurement', label: 'Procurement Demands', icon: ClipboardList },
-    { to: '/buyer/matches', label: 'Farm-Direct Matches', icon: Sparkles },
-    { to: '/buyer/deals', label: 'Active Contracts', icon: Handshake },
-    { to: '/buyer/disputes', label: 'Disputes', icon: Scale },
-    { to: '/buyer/logistics', label: 'Logistics & Delivery', icon: Truck },
+    { to: '/buyer', label: t('nav.overview', 'Overview'), icon: LayoutDashboard, end: true },
+    { to: '/buyer/procurement', label: t('nav.procurementDemands', 'Procurement Demands'), icon: ClipboardList },
+    { to: '/buyer/matches', label: t('nav.farmDirectMatches', 'Farm-Direct Matches'), icon: Sparkles },
+    { to: '/buyer/deals', label: t('nav.activeContracts', 'Active Contracts'), icon: Handshake },
+    { to: '/buyer/disputes', label: t('nav.disputes', 'Disputes'), icon: Scale },
+    { to: '/buyer/logistics', label: t('nav.logisticsDelivery', 'Logistics & Delivery'), icon: Truck },
   ];
 
   return (

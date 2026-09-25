@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink, Navigate } from 'react-router-dom';
 import { AnimatedOutlet } from './AnimatedOutlet';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { AppHeader } from './AppHeader';
 import {
   LayoutDashboard,
@@ -14,6 +15,7 @@ import {
 
 export const FarmerLayout: React.FC = () => {
   const { role, isAuthenticated } = useAuth();
+  const { t } = useLanguage();
 
   // Route guard: only FARMER can access
   if (!isAuthenticated) {
@@ -26,12 +28,12 @@ export const FarmerLayout: React.FC = () => {
   }
 
   const navItems = [
-    { to: '/farmer', label: 'Overview', icon: LayoutDashboard, end: true },
-    { to: '/farmer/market', label: 'Mandi Intelligence', icon: TrendingUp },
-    { to: '/farmer/lots', label: 'My Produce Lots', icon: Boxes },
-    { to: '/farmer/deals', label: 'Deals & Negotiation', icon: Handshake },
-    { to: '/farmer/disputes', label: 'Disputes', icon: Scale },
-    { to: '/farmer/alerts', label: 'Advisories & Alerts', icon: Bell },
+    { to: '/farmer', label: t('nav.overview', 'Overview'), icon: LayoutDashboard, end: true },
+    { to: '/farmer/market', label: t('nav.mandiIntelligence', 'Mandi Intelligence'), icon: TrendingUp },
+    { to: '/farmer/lots', label: t('nav.myProduceLots', 'My Produce Lots'), icon: Boxes },
+    { to: '/farmer/deals', label: t('nav.dealsNegotiation', 'Deals & Negotiation'), icon: Handshake },
+    { to: '/farmer/disputes', label: t('nav.disputes', 'Disputes'), icon: Scale },
+    { to: '/farmer/alerts', label: t('nav.advisoriesAlerts', 'Advisories & Alerts'), icon: Bell },
   ];
 
   return (

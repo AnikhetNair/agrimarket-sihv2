@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink, Navigate } from 'react-router-dom';
 import { AnimatedOutlet } from './AnimatedOutlet';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { AppHeader } from './AppHeader';
 import {
   LayoutDashboard,
@@ -14,6 +15,7 @@ import {
 
 export const FpoLayout: React.FC = () => {
   const { role, isAuthenticated } = useAuth();
+  const { t } = useLanguage();
 
   // Route guard: only FPO can access
   if (!isAuthenticated) {
@@ -26,12 +28,12 @@ export const FpoLayout: React.FC = () => {
   }
 
   const navItems = [
-    { to: '/fpo', label: 'Overview', icon: LayoutDashboard, end: true },
-    { to: '/fpo/members', label: 'Member Directory', icon: Users },
-    { to: '/fpo/aggregation', label: 'Lot Aggregation', icon: Layers },
-    { to: '/fpo/lots', label: 'Pooled Lots', icon: Boxes },
-    { to: '/fpo/analytics', label: 'Settlement & Audit', icon: BarChart3 },
-    { to: '/fpo/disputes', label: 'Disputes & Arbitration', icon: Scale },
+    { to: '/fpo', label: t('nav.overview', 'Overview'), icon: LayoutDashboard, end: true },
+    { to: '/fpo/members', label: t('nav.memberDirectory', 'Member Directory'), icon: Users },
+    { to: '/fpo/aggregation', label: t('nav.lotAggregation', 'Lot Aggregation'), icon: Layers },
+    { to: '/fpo/lots', label: t('nav.pooledLots', 'Pooled Lots'), icon: Boxes },
+    { to: '/fpo/analytics', label: t('nav.settlementAudit', 'Settlement & Audit'), icon: BarChart3 },
+    { to: '/fpo/disputes', label: t('nav.disputesArbitration', 'Disputes & Arbitration'), icon: Scale },
   ];
 
   return (

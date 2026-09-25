@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { dataStore } from '../../services/dataStore';
 import { ProduceLot, User } from '../../types/domain';
 import { SmartLotWizardModal } from '../../components/SmartLotWizardModal';
@@ -15,6 +16,7 @@ import { Link } from 'react-router-dom';
 
 export const FarmerLotsPage: React.FC = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const [isWizardOpen, setIsWizardOpen] = useState(false);
   const [lots, setLots] = useState<ProduceLot[]>(() => {
     return dataStore
@@ -49,10 +51,10 @@ export const FarmerLotsPage: React.FC = () => {
       <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-[#0d0a0b] tracking-tight">
-            Farmer Produce Lots
+            {t('farmer.lotsTitle', 'Farmer Produce Lots')}
           </h1>
           <p className="text-xs text-[#454955] mt-0.5">
-            Digital quality passports, asking rates, and verified dispatch batches
+            {t('farmer.lotsSubtitle', 'Digital quality passports, asking rates, and verified dispatch batches')}
           </p>
         </div>
 
@@ -61,7 +63,7 @@ export const FarmerLotsPage: React.FC = () => {
           className="inline-flex items-center space-x-1.5 px-4 py-2 bg-[#386641] hover:bg-[#2d5535] text-white rounded-lg text-xs font-semibold shadow-2xs transition cursor-pointer self-start sm:self-auto"
         >
           <Plus className="w-4 h-4 text-white" />
-          <span>Create New Lot</span>
+          <span>{t('farmer.createNewLot', 'Create Produce Lot')}</span>
         </button>
       </div>
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { dataStore } from '../../services/dataStore';
 import { User, ProduceLot, Deal, LotStatus } from '../../types/domain';
 import { NegotiationAndDealView } from '../../components/NegotiationAndDealView';
@@ -105,6 +106,7 @@ const DealCard: React.FC<DealCardProps> = ({ deal, isCompleted, onSelect }) => {
 
 export const BuyerDealsPage: React.FC = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   const domainUser: User = {
     id: user?.id || 'usr-buyer-1',
@@ -294,10 +296,10 @@ export const BuyerDealsPage: React.FC = () => {
       {/* Page Header */}
       <div className="bg-white rounded-xl border border-[#454955]/20 p-5 shadow-2xs">
         <h1 className="text-xl font-bold text-[#0d0a0b] tracking-tight">
-          Direct Procurement Negotiation & Escrow Desk
+          {t('buyer.dealsTitle', 'Active Contracts & Procurement Deals')}
         </h1>
         <p className="text-xs text-[#454955] mt-0.5">
-          Master contracts overview, active counter-offer rounds, and settled escrow agreements
+          {t('buyer.dealsSubtitle', 'Signed contracts, milestone escrow tracking, and delivery receipts')}
         </p>
       </div>
 

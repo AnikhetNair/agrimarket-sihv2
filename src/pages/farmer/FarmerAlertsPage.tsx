@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLanguage } from '../../context/LanguageContext';
 import {
   Bell,
   TrendingUp,
@@ -8,6 +9,7 @@ import {
 import { Link } from 'react-router-dom';
 
 export const FarmerAlertsPage: React.FC = () => {
+  const { t } = useLanguage();
   const alerts = [
     {
       id: 'alt-1',
@@ -48,10 +50,10 @@ export const FarmerAlertsPage: React.FC = () => {
     <div className="space-y-6">
       <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs">
         <h1 className="text-xl font-bold text-[#0d0a0b] tracking-tight">
-          Real-Time Farmgate Alerts & Market Advisory
+          {t('farmer.alertsTitle', 'Advisories & Market Alerts')}
         </h1>
         <p className="text-xs text-[#454955] mt-0.5">
-          Automated threshold notifications, weather warnings, and direct buyer demand spikes
+          {t('farmer.alertsSubtitle', 'Real-time crop advisory, weather risk notifications, and price trigger alerts')}
         </p>
       </div>
 

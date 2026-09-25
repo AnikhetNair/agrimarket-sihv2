@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
+import { LanguageSelector } from '../components/LanguageSelector';
 import { Sprout, ShieldCheck, ArrowRight, Lock, Mail, AlertCircle, Building2, UserCheck, ShoppingBag } from 'lucide-react';
 import { SEED_CREDENTIALS } from '../services/authService';
 
 export const LoginPage: React.FC = () => {
   const { signIn, isAuthenticated, role } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -25,7 +28,7 @@ export const LoginPage: React.FC = () => {
     e.preventDefault();
     setErrorMsg(null);
     if (!email.trim() || !password.trim()) {
-      setErrorMsg('Please provide both email and password.');
+      setErrorMsg(t('auth.loginRequired', 'Please provide both email and password.'));
       return;
     }
 
@@ -36,7 +39,7 @@ export const LoginPage: React.FC = () => {
         user.role === 'FARMER' ? '/farmer' : user.role === 'FPO' ? '/fpo' : '/buyer';
       navigate(destination, { replace: true });
     } catch (err: any) {
-      setErrorMsg(err.message || 'Authentication failed. Invalid email or password.');
+      setErrorMsg(err.message || t('auth.failed', 'Authentication failed. Invalid email or password.'));
     } finally {
       setSubmitting(false);
     }
@@ -49,17 +52,22 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F2E8CF] flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans selection:bg-[#386641] selection:text-white">
+    <div className="min-h-screen bg-[#F2E8CF] flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans selection:bg-[#386641] selection:text-white relative">
+      {/* Top Right Language Selector */}
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
+        <LanguageSelector className="bg-white/90 shadow-xs" />
+      </div>
+
       {/* Top Header / Brand */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#386641] text-white shadow-sm mb-3">
           <Sprout className="w-6 h-6 text-white" />
         </div>
         <h2 className="text-2xl font-bold tracking-tight text-[#0d0a0b]">
-          Sign In to Your Workspace
+          {t('auth.title', 'Sign In to Your Workspace')}
         </h2>
         <p className="mt-1 text-sm text-[#454955]">
-          Agricultural market intelligence & trade platform
+          {t('auth.subtitle', 'Agricultural market intelligence & trade platform')}
         </p>
       </div>
 
@@ -75,7 +83,7 @@ export const LoginPage: React.FC = () => {
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-[#454955] mb-1">
-                Official Email Address
+                {t('auth.emailLabel', 'Official Email Address')}
               </label>
               <div className="relative rounded-md shadow-xs">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -94,7 +102,7 @@ export const LoginPage: React.FC = () => {
 
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-[#454955] mb-1">
-                Secret Password
+                {t('auth.passwordLabel', 'Secret Password')}
               </label>
               <div className="relative rounded-md shadow-xs">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -119,11 +127,11 @@ export const LoginPage: React.FC = () => {
               {submitting ? (
                 <span className="flex items-center space-x-2">
                   <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                  <span>Verifying identity & RBAC role...</span>
+                  <span>{t('auth.authenticating', 'Authenticating...')}</span>
                 </span>
               ) : (
                 <span className="flex items-center space-x-1.5">
-                  <span>Sign In to Platform</span>
+                  <span>{t('auth.signInBtn', 'Sign In to Terminal')}</span>
                   <ArrowRight className="w-4 h-4" />
                 </span>
               )}
@@ -133,7 +141,7 @@ export const LoginPage: React.FC = () => {
           {/* Role Showcase Credentials Helper for Evaluators */}
           <div className="mt-6 pt-6 border-t border-slate-200">
             <div className="text-xs font-semibold uppercase tracking-wider text-[#454955] mb-2.5 text-center">
-              One-Click Demo Profiles (For Evaluators)
+              {t('auth.demoAccess', 'Instant One-Click Demo Access')}
             </div>
 
             <div className="space-y-2">

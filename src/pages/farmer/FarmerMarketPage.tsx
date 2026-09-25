@@ -9,12 +9,14 @@ import {
   CartesianGrid,
 } from 'recharts';
 import { getMarketData } from '../../services/marketData';
+import { useLanguage } from '../../context/LanguageContext';
 import {
   TrendingUp,
   Info,
 } from 'lucide-react';
 
 export const FarmerMarketPage: React.FC = () => {
+  const { t } = useLanguage();
   const [selectedCommodity, setSelectedCommodity] = useState('Carrot');
   const [selectedLocation, setSelectedLocation] = useState('Nashik');
 
@@ -102,10 +104,10 @@ export const FarmerMarketPage: React.FC = () => {
       <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-[#0d0a0b] tracking-tight">
-            APMC Market Intelligence & Predictive Spreads
+            {t('farmer.marketTitle', 'Mandi Market Intelligence')}
           </h1>
           <p className="text-xs text-[#454955] mt-0.5">
-            Transparent mandi benchmark analytics, historical trends, and net spatial realisation
+            {t('farmer.marketSubtitle', 'Live APMC prices, corridor freight net-realisation, and price forecasts')}
           </p>
         </div>
 

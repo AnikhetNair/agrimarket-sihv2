@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { dataStore } from '../../services/dataStore';
 import { Dispute } from '../../types/domain';
 import { DisputeCard } from '../../components/disputes/DisputeCard';
@@ -15,6 +16,7 @@ import {
 
 export const BuyerDisputesPage: React.FC = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const [isRaiseModalOpen, setIsRaiseModalOpen] = useState<boolean>(false);
   const [disputes, setDisputes] = useState<Dispute[]>(dataStore.getDisputes());
   const [filterStatus, setFilterStatus] = useState<string>('ALL');
@@ -59,9 +61,11 @@ export const BuyerDisputesPage: React.FC = () => {
                 <Scale className="w-6 h-6" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-slate-900">Buyer Quality &amp; Consignment Disputes</h1>
+                <h1 className="text-xl font-bold text-slate-900">
+                  {t('buyer.disputesTitle', 'Buyer Dispute Management')}
+                </h1>
                 <p className="text-xs text-slate-500">
-                  Manage inward QC variances, dock intake disputes, and weighbridge shortfalls backed by FPO Escrow
+                  {t('buyer.disputesSubtitle', 'Lodge quality discrepancy, transit damage, or shortfall claims')}
                 </p>
               </div>
             </div>
@@ -75,7 +79,7 @@ export const BuyerDisputesPage: React.FC = () => {
               className="px-4 py-2.5 bg-[#386641] hover:bg-[#2b5133] text-white rounded-xl text-xs font-bold transition shadow-xs cursor-pointer flex items-center space-x-2"
             >
               <Plus className="w-4 h-4" />
-              <span>Raise Dispute</span>
+              <span>{t('disputes.raiseTitle', 'Raise Dispute')}</span>
             </button>
           </div>
         </div>

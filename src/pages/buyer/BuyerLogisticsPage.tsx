@@ -1,10 +1,12 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { User } from '../../types/domain';
 import { LogisticsAndSettlementView } from '../../components/LogisticsAndSettlementView';
 
 export const BuyerLogisticsPage: React.FC = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   const domainUser: User = {
     id: user?.id || 'usr-buyer-1',
@@ -21,10 +23,10 @@ export const BuyerLogisticsPage: React.FC = () => {
     <div className="space-y-6">
       <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs">
         <h1 className="text-xl font-bold text-[#0d0a0b] tracking-tight">
-          Transit Tracking & Inspection Clearance
+          {t('buyer.logisticsTitle', 'Logistics & Delivery Tracking')}
         </h1>
         <p className="text-xs text-[#454955] mt-0.5">
-          Live GPS corridors, weighbridge cross-verification, and digital gate pass authorization
+          {t('buyer.logisticsSubtitle', 'Track produce dispatches, truck allocation, and warehouse delivery receipts')}
         </p>
       </div>
 
