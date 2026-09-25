@@ -1,0 +1,6 @@
+{
+  "name": "AgriMarket Intelligence Platform",
+  "description": "Agricultural market intelligence, decision support, lot aggregation, buyer matching, and transaction-enablement platform for Indian agriculture.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
