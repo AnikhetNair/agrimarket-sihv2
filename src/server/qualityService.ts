@@ -1,7 +1,7 @@
 import {
   classifyProduce,
   RoboflowResult,
-} from "./roboflowService";
+} from "./roboflowService.ts";
 import { GoogleGenAI } from "@google/genai";
 
 export interface QualityAssessment {
